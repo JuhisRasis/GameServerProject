@@ -1,0 +1,22 @@
+
+Player:
+    Id: 42ee9e51-25b8-4220-abb2-80352e28ceab
+    Name: test2
+    Score: 876
+    Level: 0
+    IsBanned: False
+    CreationTime: 14/09/2020 7.03.40
+Player:
+    Id: 67d9d071-bb68-4bcd-a6d6-e5d54a3f1172
+    Name: test3
+    Score: 43
+    Level: 0
+    IsBanned: False
+    CreationTime: 14/09/2020 7.03.47
+Player:
+    Id: 972ed24a-2130-41c8-8855-b1c6907a89a0
+    Name: test4
+    Score: 0
+    Level: 0
+    IsBanned: False
+    CreationTime: 14/09/2020 7.06.04
