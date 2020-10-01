@@ -11,10 +11,20 @@ namespace GameWebApi
 {
     public class Program
     {
+
+
+
         public static void Main(string[] args) // public static void
         {
+            GameClass game = new GameClass();
+            game.Game();
             CreateHostBuilder(args).Build().Run();
+
         }
+
+
+
+
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -22,5 +32,7 @@ namespace GameWebApi
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+
     }
 }

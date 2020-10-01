@@ -4730,11 +4730,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jujapi\\Desktop\\GameBackend-master\\GameBackend-master\\Assignment5\\GameWebApi\\GameWebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Jujapi\\Documents\\GitHub\\GameServerProject\\GameWebApi\\GameWebApi.csproj",
       "projectName": "GameWebApi",
-      "projectPath": "C:\\Users\\Jujapi\\Desktop\\GameBackend-master\\GameBackend-master\\Assignment5\\GameWebApi\\GameWebApi.csproj",
+      "projectPath": "C:\\Users\\Jujapi\\Documents\\GitHub\\GameServerProject\\GameWebApi\\GameWebApi.csproj",
       "packagesPath": "C:\\Users\\Jujapi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jujapi\\Desktop\\GameBackend-master\\GameBackend-master\\Assignment5\\GameWebApi\\obj\\",
+      "outputPath": "C:\\Users\\Jujapi\\Documents\\GitHub\\GameServerProject\\GameWebApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Jujapi\\AppData\\Roaming\\NuGet\\NuGet.Config",

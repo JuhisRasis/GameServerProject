@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using System.Linq;
 using System.Collections.Generic;
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GameWebApi
 {
@@ -19,6 +20,24 @@ namespace GameWebApi
             IMongoDatabase db = mongoClient.GetDatabase("game");
             playersCollection = db.GetCollection<Player>("players");
         }
+        public async void DoSomethingAsync()
+        {
+            const string connectionString = "mongodb://localhost:27017";
+
+            // Create a MongoClient object by using the connection string
+            var client = new MongoClient(connectionString);
+
+            //Use the MongoClient to access the server
+            var database = client.GetDatabase("test");
+
+            //get mongodb collection
+
+            Player newPlayer = new Player();
+            newPlayer.Name = "asd";
+            newPlayer.Score = 0;
+            await Create(newPlayer);
+        }
+
 
         public async Task<Player> Get(Guid id)
         {
@@ -64,7 +83,6 @@ namespace GameWebApi
         public async Task<Player> Create(Player player)
         {
             await playersCollection.InsertOneAsync(player);
-            Console.WriteLine("Created player with id: " + player.Id);
             return player;
         }
 
@@ -135,5 +153,6 @@ namespace GameWebApi
 
             return null;
         }
+
     }
 }

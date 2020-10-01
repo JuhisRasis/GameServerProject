@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IQsGhuj0L+WVyGc5PwnZscMiWRfOj6JZFZtCz/bufEDlkF3+rQCZy1P2fohloHmodHJ/6rB4QQzWhCTvsDWBbw==",
+  "dgSpecHash": "TuflXxU3Bd+83Fbn1h/plIys9ilsgUTkdCD8P3SghomJXCjWuibJCYzKzvHf/CGcwqUHJ/74m7Zu7ojFL/VueA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jujapi\\Desktop\\GameBackend-master\\GameBackend-master\\Assignment5\\GameWebApi\\GameWebApi.csproj",
+  "projectFilePath": "C:\\Users\\Jujapi\\Documents\\GitHub\\GameServerProject\\GameWebApi\\GameWebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jujapi\\.nuget\\packages\\dnsclient\\1.3.1\\dnsclient.1.3.1.nupkg.sha512",
     "C:\\Users\\Jujapi\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",

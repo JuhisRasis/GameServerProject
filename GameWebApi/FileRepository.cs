@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace GameWebApi
 {
@@ -11,7 +12,7 @@ namespace GameWebApi
 
         public async Task<Player> Get(Guid id)
         {
-            
+
             Player player = new Player();
             player.Id = id;
             bool playerFound = false;
@@ -74,7 +75,7 @@ namespace GameWebApi
             }
             if (!playerFound)
             {
-                Console.WriteLine("Player with id: " +  id + " was not found!");
+                Console.WriteLine("Player with id: " + id + " was not found!");
                 return null;
             }
             return player;
@@ -166,13 +167,13 @@ namespace GameWebApi
                 }
             }
 
-            if(playerFound)
+            if (playerFound)
             {
                 string[] lines = await File.ReadAllLinesAsync(path);
                 lines[line + 2] = "    Score: " + player.Score;
                 await File.WriteAllLinesAsync(path, lines);
             }
-            
+
             Player p = await Get(id);
 
             if (p != null)
@@ -208,7 +209,7 @@ namespace GameWebApi
             }
 
             Player p = new Player();
-            
+
             if (playerFound)
             {
                 p = await Get(id); // Save soon to be deleted player to a variable
@@ -234,6 +235,15 @@ namespace GameWebApi
                 Console.WriteLine("Couldnt find player to delete: " + id);
                 return null;
             }
+        }
+        public void game()
+        {
+
+            String playerName;
+
+            Console.WriteLine("Anna pelaajan nimi");
+            playerName = Console.ReadLine();
+            Console.WriteLine(playerName);
         }
     }
 }
