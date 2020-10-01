@@ -20,21 +20,15 @@ namespace GameWebApi
             IMongoDatabase db = mongoClient.GetDatabase("game");
             playersCollection = db.GetCollection<Player>("players");
         }
-        public async void DoSomethingAsync()
+        public async void AddPlayerInformation()
         {
-            const string connectionString = "mongodb://localhost:27017";
 
-            // Create a MongoClient object by using the connection string
-            var client = new MongoClient(connectionString);
-
-            //Use the MongoClient to access the server
-            var database = client.GetDatabase("test");
-
-            //get mongodb collection
 
             Player newPlayer = new Player();
-            newPlayer.Name = "asd";
+            Console.WriteLine("Give Player Name");
+            newPlayer.Name = Console.ReadLine();
             newPlayer.Score = 0;
+            newPlayer.IsBanned = false;
             await Create(newPlayer);
         }
 

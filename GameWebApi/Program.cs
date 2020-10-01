@@ -17,8 +17,7 @@ namespace GameWebApi
         public static void Main(string[] args) // public static void
         {
             GameClass game = new GameClass();
-            game.Game();
-            CreateHostBuilder(args).Build().Run();
+            Parallel.Invoke(() => CreateHostBuilder(args).Build().Run(), () => game.Game());
 
         }
 

@@ -14,7 +14,7 @@ namespace GameWebApi
         public void Game()
         {
             Console.WriteLine("asd");
-            DoSomethingAsync();
+            AddPlayerInformation();
 
         }
     }
