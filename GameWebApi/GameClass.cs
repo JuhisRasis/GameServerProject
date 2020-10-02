@@ -10,6 +10,8 @@ namespace GameWebApi
 {
     public class GameClass : MongoDbRepository
     {
+        Player x;
+
 
         public void Game()
         {
@@ -24,16 +26,33 @@ namespace GameWebApi
             Console.WriteLine("Your character name is " + newPlayer.Name + "\n");
 
 
+            Task<Player> task = GetPlayerName(newPlayer);
+            Console.WriteLine("Please wait patiently " + "while I fetch player Information");
+            try
+            {
 
+                task.Wait();
+                x = task.Result;
+                if (x == newPlayer)
+                {
+                    Console.WriteLine("Welcome Back " + x.Name);
+                }
+            }
+            catch
+            {
+
+                Console.WriteLine("New Account Created");
+
+            }
 
 
 
             AddPlayerInformation(newPlayer);
 
+
         }
         public async Task<Player> GetPlayerName(Player playerName)
         {
-
             await GetPlayerWithName(playerName.Name);
             return playerName;
 

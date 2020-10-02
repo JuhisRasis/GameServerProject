@@ -57,16 +57,15 @@ namespace GameWebApi
 
 
         [HttpPost("create")]
-        public Task<Player> Create([FromBody] NewPlayer player)
+        public Task<Player> Create([FromBody] Player player)
         {
-            Player p = new Player();
-            p.Name = player.Name;
-            p.Id = Guid.NewGuid();
-            p.Score = 0;
-            p.Level = player.Level;
-            p.IsBanned = false;
-            p.CreationTime = DateTime.UtcNow;
-            return repo.Create(p);
+            player.Name = player.Name;
+            player.Id = Guid.NewGuid();
+            player.Score = 0;
+            player.Level = player.Level;
+            player.IsBanned = false;
+            player.CreationTime = DateTime.UtcNow;
+            return repo.Create(player);
         }
 
         [HttpPost("modify/{id:guid}")]

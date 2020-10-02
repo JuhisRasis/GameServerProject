@@ -20,11 +20,14 @@ namespace GameWebApi
             IMongoDatabase db = mongoClient.GetDatabase("game");
             playersCollection = db.GetCollection<Player>("players");
         }
-        public async void AddPlayerInformation(Player newPlayer)
+        public async void AddPlayerInformation(Player player)
         {
-            newPlayer.Score = 0;
-            newPlayer.IsBanned = false;
-            await Create(newPlayer);
+            player.Id = Guid.NewGuid();
+            player.Score = 1;
+            player.Level = 1;
+            player.IsBanned = false;
+            player.CreationTime = DateTime.UtcNow;
+            await Create(player);
         }
 
 
