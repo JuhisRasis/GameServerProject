@@ -20,17 +20,13 @@ namespace GameWebApi
             IMongoDatabase db = mongoClient.GetDatabase("game");
             playersCollection = db.GetCollection<Player>("players");
         }
-        public async void AddPlayerInformation()
+        public async void AddPlayerInformation(Player newPlayer)
         {
-
-
-            Player newPlayer = new Player();
-            Console.WriteLine("Give Player Name");
-            newPlayer.Name = Console.ReadLine();
             newPlayer.Score = 0;
             newPlayer.IsBanned = false;
             await Create(newPlayer);
         }
+
 
 
         public async Task<Player> Get(Guid id)
