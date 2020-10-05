@@ -73,7 +73,6 @@ namespace GameWebApi
         {
             FilterDefinition<Player> filter = Builders<Player>.Filter.Eq(p => p.Name, name);
             Player p = await playersCollection.Find(filter).FirstAsync();
-            Console.WriteLine(p.Name);
             return p;
         }
 

@@ -14,6 +14,7 @@ namespace GameWebApi
         Player[] xArray;
         int amount;
 
+        Player opponent;
 
         public void Game()
         {
@@ -36,9 +37,8 @@ namespace GameWebApi
                 if (task.IsCompleted)
                 {
                     Console.WriteLine("Welcome Back " + x.Name);
-                    Console.WriteLine(x.CreationTime);
-                    Console.WriteLine(x.IsBanned);
-                    Console.WriteLine(x.Score);
+
+                    Console.WriteLine("Your current rating is: " + x.Score);
                 }
             }
             catch
@@ -84,9 +84,53 @@ namespace GameWebApi
             Task<Player> updateTask = UpdatePlayerGuessNameNumber(myPlayer.Name, ownNumber);
             updateTask.Wait();
 
-            Task<Player> task = GetRandomPlayer();
-            task.Wait();
-            Console.WriteLine(task.Result.Name);
+
+            bool foundPlayer = false;
+            while (foundPlayer == false)
+            {
+                Task<Player> task = GetRandomPlayer();
+                task.Wait();
+                Console.WriteLine(task.Result.Name);
+                if (task.Result.Name != myPlayer.Name)
+                {
+                    foundPlayer = true;
+                    opponent = task.Result;
+                }
+
+            }
+            Console.WriteLine("Your Opponent is: " + opponent.Name + "\n");
+            Console.WriteLine("Guess " + opponent.Name + "'s number!");
+
+            int guessNumberInt = 0;
+            while (guessNumberInt == 0)
+            {
+                guessNumberInt = Int32.Parse(Console.ReadLine());
+                if (guessNumberInt > 10 || guessNumberInt < 1)
+                {
+                    Console.WriteLine("Number must be between 1 and 10! \n");
+                    guessNumberInt = 0;
+                }
+            }
+            Task<Player> getPlayerTask = GetPlayerWithName(opponent.Name);
+            getPlayerTask.Wait();
+            if (getPlayerTask.Result.GuessGameNumber == guessNumberInt)
+            {
+                Console.WriteLine("congratulations you win +10 score, " + opponent.Name + "lost -10 score\n");
+                Task<Player> updateScoreTask = UpdatePlayerGuessNameNumber(opponent.Name, opponent.Score - 10);
+                updateScoreTask.Wait();
+                Task<Player> updateMyScoreTask = UpdatePlayerGuessNameNumber(myPlayer.Name, myPlayer.Score + 10);
+                updateMyScoreTask.Wait();
+                Console.WriteLine("Your current rating is: " + myPlayer.Score + "" + (opponent.Score - 10));
+            }
+            else
+            {
+                Console.WriteLine("You lost -1 score, " + opponent.Name + " won +1 score\n");
+                Task<Player> updateScoreTask = UpdatePlayerGuessNameNumber(opponent.Name, opponent.Score + 1);
+                updateScoreTask.Wait();
+                Task<Player> updateMyScoreTask = UpdatePlayerGuessNameNumber(myPlayer.Name, myPlayer.Score - 1);
+                updateMyScoreTask.Wait();
+                Console.WriteLine("Your current rating is: " + myPlayer.Score + " " + opponent.Name + "'s current rating is: " + (opponent.Score + 1));
+            }
 
             //get paired with random player from player list
             //Player myPair;
@@ -101,7 +145,7 @@ namespace GameWebApi
             {
                 Console.WriteLine("Give leaderboard search position? last pos:  " + amount);
                 string startPos = Console.ReadLine();
-                startPosInt = Int16.Parse(startPos);
+                startPosInt = Int32.Parse(startPos);
 
             } while (startPosInt > amount);
 
@@ -113,7 +157,7 @@ namespace GameWebApi
             {
                 Console.WriteLine("How many positions do you want to display? Max Amount:  " + (amount - startPosInt));
                 string howMany = Console.ReadLine();
-                howManyInt = Int16.Parse(howMany);
+                howManyInt = Int32.Parse(howMany);
 
             } while (startPosInt > amount);
 
