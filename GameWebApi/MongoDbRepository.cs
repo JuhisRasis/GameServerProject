@@ -28,6 +28,18 @@ namespace GameWebApi
             player.CreationTime = DateTime.UtcNow;
             await Create(player);
         }
+        public async Task<Player> UpdatePlayerGuessNameNumber(string name, int newGuessGameNumber)
+        {
+            var filter = Builders<Player>.Filter.Eq(p => p.Name, name);
+            var guessGameNumberUpdate = Builders<Player>.Update.Set(p => p.GuessGameNumber, newGuessGameNumber);
+            var options = new FindOneAndUpdateOptions<Player>()
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+            Player player = await playersCollection.FindOneAndUpdateAsync(filter, guessGameNumberUpdate, options);
+            return player;
+        }
+
 
         public async Task<Player> GetPlayerInformation(Player player)
         {
@@ -61,6 +73,7 @@ namespace GameWebApi
         {
             FilterDefinition<Player> filter = Builders<Player>.Filter.Eq(p => p.Name, name);
             Player p = await playersCollection.Find(filter).FirstAsync();
+            Console.WriteLine(p.Name);
             return p;
         }
 
@@ -89,6 +102,18 @@ namespace GameWebApi
             return top10.ToArray();
         }
 
+        public async Task<Player[]> GetlayersWithinThesePostions(int start, int displayAmount)
+        {
+            SortDefinition<Player> sortDef = Builders<Player>.Sort.Descending(p => p.Score);
+            List<Player> top10 = await playersCollection.Find(new BsonDocument()).Sort(sortDef).Skip(start).Limit(displayAmount).ToListAsync();
+            return top10.ToArray();
+
+        }
+        public async Task<long> GetDocumentAmount()
+        {
+            long amount = playersCollection.Find(new BsonDocument()).CountDocuments();
+            return amount;
+        }
 
         public async Task<Player> Create(Player player)
         {

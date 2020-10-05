@@ -4725,24 +4725,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\emilv\\.nuget\\packages\\": {}
+    "C:\\Users\\Jujapi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\emilv\\OneDrive\\Tiedostot\\GameServerProject\\GameWebApi\\GameWebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Jujapi\\Documents\\GitHub\\GameServerProject\\GameWebApi\\GameWebApi.csproj",
       "projectName": "GameWebApi",
-      "projectPath": "C:\\Users\\emilv\\OneDrive\\Tiedostot\\GameServerProject\\GameWebApi\\GameWebApi.csproj",
-      "packagesPath": "C:\\Users\\emilv\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\emilv\\OneDrive\\Tiedostot\\GameServerProject\\GameWebApi\\obj\\",
+      "projectPath": "C:\\Users\\Jujapi\\Documents\\GitHub\\GameServerProject\\GameWebApi\\GameWebApi.csproj",
+      "packagesPath": "C:\\Users\\Jujapi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Jujapi\\Documents\\GitHub\\GameServerProject\\GameWebApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\emilv\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Jujapi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
