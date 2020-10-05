@@ -68,7 +68,6 @@ namespace GameWebApi
             player.Name = player.Name;
             player.Id = Guid.NewGuid();
             player.Score = 0;
-            player.Level = player.Level;
             player.IsBanned = false;
             player.CreationTime = DateTime.UtcNow;
             return repo.Create(player);

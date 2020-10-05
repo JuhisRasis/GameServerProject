@@ -24,7 +24,6 @@ namespace GameWebApi
         {
             player.Id = Guid.NewGuid();
             player.Score = 1;
-            player.Level = 1;
             player.IsBanned = false;
             player.CreationTime = DateTime.UtcNow;
             await Create(player);
@@ -70,6 +69,17 @@ namespace GameWebApi
             var filter = Builders<Player>.Filter.Eq("Tags", tag);
             List<Player> p = await playersCollection.Find(filter).ToListAsync();
             return p.ToArray();
+        }
+
+        public async Task<Player> GetRandomPlayer()
+        {
+            long i = playersCollection.Find(new BsonDocument()).CountDocuments();
+            Random rand = new Random();
+            int plrNumber = rand.Next(Convert.ToInt32(i));
+
+            SortDefinition<Player> sortDef = Builders<Player>.Sort.Descending(p => p.Score);
+            List<Player> list = await playersCollection.Find(new BsonDocument()).Sort(sortDef).Skip(plrNumber).Limit(1).ToListAsync();
+            return list[0];
         }
 
         public async Task<Player[]> GetTop10Players()

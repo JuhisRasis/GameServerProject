@@ -45,6 +45,36 @@ namespace GameWebApi
                 Console.WriteLine("New Account Created");
                 AddPlayerInformation(player);
             }
+
+            Console.WriteLine("Do you want to play the game(0) or see the leaderboard(1)? (answer 0 or 1) \n");
+            string answer = Console.ReadLine();
+
+            if (answer == "0")
+            {
+                GuessNumberGame(player);
+            }
+        }
+
+        void GuessNumberGame(Player myPlayer)
+        {
+            int ownNumber = 0;
+            while (ownNumber == 0)
+            {
+                Console.WriteLine("Set your guessable number: (1-10) \n");
+                ownNumber = Int32.Parse(Console.ReadLine());
+                if (ownNumber > 10 || ownNumber < 1)
+                {
+                    Console.WriteLine("Number must be between 1 and 10! \n");
+                    ownNumber = 0;
+                }
+            }
+            myPlayer.GuessGameNumber = ownNumber;
+            Task<Player> task = GetRandomPlayer();
+            task.Wait();
+            Console.WriteLine(task.Result.Name);
+
+            //get paired with random player from player list
+            //Player myPair;
         }
     }
 }
