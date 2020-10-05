@@ -11,20 +11,12 @@ namespace GameWebApi
 {
     public class Program
     {
-
-
-
         public static void Main(string[] args) // public static void
         {
             GameClass game = new GameClass();
             Parallel.Invoke(() => CreateHostBuilder(args).Build().Run(), () => game.Game());
 
         }
-
-
-
-
-
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

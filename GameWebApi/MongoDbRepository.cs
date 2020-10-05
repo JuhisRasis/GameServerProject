@@ -30,6 +30,13 @@ namespace GameWebApi
             await Create(player);
         }
 
+        public async Task<Player> GetPlayerInformation(Player player)
+        {
+
+            await GetPlayerWithName(player.Name);
+            return player;
+        }
+
 
 
         public async Task<Player> Get(Guid id)

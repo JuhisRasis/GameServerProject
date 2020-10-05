@@ -20,44 +20,31 @@ namespace GameWebApi
             Console.WriteLine("Give Player Name\n");
             string playerName = Console.ReadLine();
 
+            Player player = new Player();
+            player.Name = playerName;
+            Console.WriteLine("Your character name is " + player.Name + "\n");
 
-            Player newPlayer = new Player();
-            newPlayer.Name = playerName;
-            Console.WriteLine("Your character name is " + newPlayer.Name + "\n");
-
-
-            Task<Player> task = GetPlayerName(newPlayer);
-            Console.WriteLine("Please wait patiently " + "while I fetch player Information");
             try
             {
-
+                Task<Player> task = GetPlayerWithName(playerName);
+                Console.WriteLine("Please wait patiently " + "while I fetch player Information");
                 task.Wait();
+                Console.WriteLine(task.Result);
                 x = task.Result;
-                if (x == newPlayer)
+                if (x.Name == player.Name)
                 {
                     Console.WriteLine("Welcome Back " + x.Name);
+                    Console.WriteLine(x.CreationTime);
+                    Console.WriteLine(x.IsBanned);
+                    Console.WriteLine(x.Score);
                 }
             }
             catch
             {
 
                 Console.WriteLine("New Account Created");
-
+                AddPlayerInformation(player);
             }
-
-
-
-            AddPlayerInformation(newPlayer);
-
-
-        }
-        public async Task<Player> GetPlayerName(Player playerName)
-        {
-            await GetPlayerWithName(playerName.Name);
-            return playerName;
-
         }
     }
-
-
 }

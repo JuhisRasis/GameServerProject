@@ -11,9 +11,9 @@ namespace GameWebApi
     [Route("players")]
     public class PlayersController : ControllerBase
     {
-        private readonly IRepository repo;
+        private readonly MongoDbRepository repo;
 
-        public PlayersController(IRepository _repo)
+        public PlayersController(MongoDbRepository _repo)
         {
             repo = _repo;
         }
@@ -36,6 +36,12 @@ namespace GameWebApi
         {
             Console.WriteLine("GetPlayersWithName");
             Console.WriteLine("name: " + name);
+            return repo.GetPlayerWithName(name);
+        }
+
+
+        public Task<Player> GetPlayerWithNameGet(string name)
+        {
             return repo.GetPlayerWithName(name);
         }
 
