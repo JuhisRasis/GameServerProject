@@ -60,7 +60,7 @@ namespace GameWebApi
             }
             else
             {
-                Leaderboard();
+                Leaderboard(player);
             }
         }
 
@@ -141,22 +141,46 @@ namespace GameWebApi
             //get paired with random player from player list
             //Player myPair;
         }
-        void Leaderboard()
+        void Leaderboard(Player player)
+        {
+            Console.WriteLine("Do you want to search leaderboard postions(0) or see your current position in the leaderboard(1)\n or Cycle trough leaderboard 10 pages at a time(2) or display top10 Players(3)? (answer 0 or 1 or 2 or 3) \n");
+            string answer = Console.ReadLine();
+
+            if (answer == "0")
+            {
+                SearchPositions();
+            }
+            else if (answer == "1")
+            {
+                DisplayMyPostion(player);
+            }
+            else if (answer == "2")
+            {
+                CycleThroughLeaderboard();
+            }
+            else
+            {
+                DisplayTop10Players();
+            }
+        }
+
+        void SearchPositions()
         {
             Task<long> documentTask = GetDocumentAmount();
             documentTask.Wait();
             amount = Convert.ToInt32(documentTask.Result);
+
+
             int startPosInt = 0;
             do
             {
-                Console.WriteLine("Give leaderboard search position? last pos:  " + amount);
+                Console.WriteLine("Give leaderboard search position? (Descending order) First position: 0 -  last position:  " + amount);
                 string startPos = Console.ReadLine();
                 startPosInt = Int32.Parse(startPos);
 
             } while (startPosInt > amount);
 
 
-            Console.WriteLine("How many players do you want to display? ");
             int howManyInt = 0;
 
             do
@@ -175,7 +199,68 @@ namespace GameWebApi
             xArray = task.Result;
             for (int i = 0; i < 10; i++)
             {
-                Console.WriteLine("Name: " + xArray[i].Name + "      Score: " + xArray[i].Score + "\n");
+                Console.WriteLine("Pos. " + (startPosInt + i + 1) + "       Name: " + xArray[i].Name + "      Score: " + xArray[i].Score + "\n");
+            }
+
+        }
+        void DisplayMyPostion(Player player)
+        {
+            Task<long> documentTask = GetDocumentAmount();
+            documentTask.Wait();
+            amount = Convert.ToInt32(documentTask.Result);
+
+            Task<Player[]> task = GetMyPlayerRanking(amount, player);
+            Console.WriteLine("Please wait patiently " + "while I fetch leaderboard");
+            task.Wait();
+            xArray = task.Result;
+            for (int i = 0; i < amount; i++)
+            {
+                if (xArray[i].Name == player.Name)
+                {
+                    Console.WriteLine("Pos. " + (i + 1) + "       Name: " + xArray[i].Name + "      Score: " + xArray[i].Score + "\n");
+                }
+            }
+        }
+
+        void CycleThroughLeaderboard()
+        {
+            Console.WriteLine("Please wait patiently " + "while I fetch leaderboard");
+            int currentPage = 0;
+            int i = 0;
+            Task<long> documentTask = GetDocumentAmount();
+            documentTask.Wait();
+            amount = Convert.ToInt32(documentTask.Result);
+
+            while (i <= amount)
+            {
+
+                Task<Player[]> task = Get10PlayersAtAtime(currentPage, 10);
+                task.Wait();
+                xArray = task.Result;
+
+                for (int i2 = 0; i2 < 10; i2++)
+                {
+                    Console.WriteLine("Pos. " + (i + 1) + "       Name: " + xArray[i2].Name + "      Score: " + xArray[i2].Score + "\n");
+                    i++;
+                }
+                Console.WriteLine("Display next 10 positions? Press Enter");
+                Console.ReadLine();
+                currentPage++;
+                Console.WriteLine("Current page is: " + currentPage);
+            }
+            Console.WriteLine("EndLoop");
+        }
+
+
+        void DisplayTop10Players()
+        {
+            Console.WriteLine("Please wait patiently " + "while I fetch leaderboard");
+            Task<Player[]> task = GetTop10Players();
+            task.Wait();
+            xArray = task.Result;
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine("Pos. " + (i + 1) + "       Name: " + xArray[i].Name + "      Score: " + xArray[i].Score + "\n");
             }
         }
     }

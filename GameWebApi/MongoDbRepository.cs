@@ -113,6 +113,22 @@ namespace GameWebApi
             return top10.ToArray();
         }
 
+        public async Task<Player[]> Get10PlayersAtAtime(int currentPage, int limit)
+        {
+            SortDefinition<Player> sortDef = Builders<Player>.Sort.Descending(p => p.Score);
+            List<Player> displayNext10 = await playersCollection.Find(new BsonDocument()).Sort(sortDef).Skip(currentPage * 10).Limit(limit).ToListAsync();
+            return displayNext10.ToArray();
+        }
+
+
+        public async Task<Player[]> GetMyPlayerRanking(int allPlayers, Player player)
+        {
+            SortDefinition<Player> sortDef = Builders<Player>.Sort.Descending(p => p.Score);
+            List<Player> allPlayersList = await playersCollection.Find(new BsonDocument()).Sort(sortDef).Limit(allPlayers).ToListAsync();
+            return allPlayersList.ToArray();
+        }
+
+
         public async Task<Player[]> GetlayersWithinThesePostions(int start, int displayAmount)
         {
             SortDefinition<Player> sortDef = Builders<Player>.Sort.Descending(p => p.Score);
