@@ -40,6 +40,18 @@ namespace GameWebApi
             return player;
         }
 
+        public async Task<Player> UpdatePlayerScore(string name, int newScoreNumber)
+        {
+            var filter = Builders<Player>.Filter.Eq(p => p.Name, name);
+            var scoreNumberUpdate = Builders<Player>.Update.Set(p => p.Score, newScoreNumber);
+            var options = new FindOneAndUpdateOptions<Player>()
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+            Player player = await playersCollection.FindOneAndUpdateAsync(filter, scoreNumberUpdate, options);
+            return player;
+        }
+
 
         public async Task<Player> GetPlayerInformation(Player player)
         {

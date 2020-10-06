@@ -115,21 +115,21 @@ namespace GameWebApi
             getPlayerTask.Wait();
             if (getPlayerTask.Result.GuessGameNumber == guessNumberInt)
             {
-                Console.WriteLine("congratulations you win +10 score, " + opponent.Name + "lost -10 score\n");
-                Task<Player> updateScoreTask = UpdatePlayerGuessNameNumber(opponent.Name, opponent.Score - 10);
+                Console.WriteLine("Congratulations you win +10 score, " + opponent.Name + " lost -10 score\n");
+                Task<Player> updateScoreTask = UpdatePlayerScore(opponent.Name, (opponent.Score - 10));
                 updateScoreTask.Wait();
-                Task<Player> updateMyScoreTask = UpdatePlayerGuessNameNumber(myPlayer.Name, myPlayer.Score + 10);
+                Task<Player> updateMyScoreTask = UpdatePlayerScore(myPlayer.Name, (myPlayer.Score + 10));
                 updateMyScoreTask.Wait();
-                Console.WriteLine("Your current rating is: " + myPlayer.Score + "" + (opponent.Score - 10));
+                Console.WriteLine("Your current rating is: " + myPlayer.Score + " opponent's current rating is: " + (opponent.Score - 10));
             }
             else
             {
                 Console.WriteLine("You lost -1 score, " + opponent.Name + " won +1 score\n");
-                Task<Player> updateScoreTask = UpdatePlayerGuessNameNumber(opponent.Name, opponent.Score + 1);
+                Task<Player> updateScoreTask = UpdatePlayerScore(opponent.Name, (opponent.Score + 1));
                 updateScoreTask.Wait();
-                Task<Player> updateMyScoreTask = UpdatePlayerGuessNameNumber(myPlayer.Name, myPlayer.Score - 1);
+                Task<Player> updateMyScoreTask = UpdatePlayerScore(myPlayer.Name, (myPlayer.Score - 1));
                 updateMyScoreTask.Wait();
-                Console.WriteLine("Your current rating is: " + myPlayer.Score + " " + opponent.Name + "'s current rating is: " + (opponent.Score + 1));
+                Console.WriteLine("Your current rating is: " + (myPlayer.Score - 1) + " " + opponent.Name + "'s current rating is: " + (opponent.Score + 1));
             }
 
             //get paired with random player from player list
@@ -170,7 +170,6 @@ namespace GameWebApi
             for (int i = 0; i < 10; i++)
             {
                 Console.WriteLine("Name: " + xArray[i].Name + "      Score: " + xArray[i].Score + "\n");
-
             }
         }
     }
