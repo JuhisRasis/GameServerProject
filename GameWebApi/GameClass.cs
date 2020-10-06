@@ -113,20 +113,26 @@ namespace GameWebApi
             }
             Task<Player> getPlayerTask = GetPlayerWithName(opponent.Name);
             getPlayerTask.Wait();
+            Task<Player> getMyPlayerTask = GetPlayerWithName(myPlayer.Name);
+            getMyPlayerTask.Wait();
+            myPlayer = getMyPlayerTask.Result;
+
             if (getPlayerTask.Result.GuessGameNumber == guessNumberInt)
             {
                 Console.WriteLine("Congratulations you win +10 score, " + opponent.Name + " lost -10 score\n");
                 Task<Player> updateScoreTask = UpdatePlayerScore(opponent.Name, (opponent.Score - 10));
                 updateScoreTask.Wait();
+
                 Task<Player> updateMyScoreTask = UpdatePlayerScore(myPlayer.Name, (myPlayer.Score + 10));
                 updateMyScoreTask.Wait();
-                Console.WriteLine("Your current rating is: " + myPlayer.Score + " opponent's current rating is: " + (opponent.Score - 10));
+                Console.WriteLine("Your current rating is: " + (myPlayer.Score + 10) + " opponent's current rating is: " + (opponent.Score - 10));
             }
             else
             {
                 Console.WriteLine("You lost -1 score, " + opponent.Name + " won +1 score\n");
                 Task<Player> updateScoreTask = UpdatePlayerScore(opponent.Name, (opponent.Score + 1));
                 updateScoreTask.Wait();
+
                 Task<Player> updateMyScoreTask = UpdatePlayerScore(myPlayer.Name, (myPlayer.Score - 1));
                 updateMyScoreTask.Wait();
                 Console.WriteLine("Your current rating is: " + (myPlayer.Score - 1) + " " + opponent.Name + "'s current rating is: " + (opponent.Score + 1));
