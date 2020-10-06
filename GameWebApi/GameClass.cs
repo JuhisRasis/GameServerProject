@@ -13,20 +13,16 @@ namespace GameWebApi
         Player x;
         Player[] xArray;
         int amount;
-
         Player opponent;
 
         public void Game()
         {
             Console.WriteLine("Welcome to Gaem\n");
-
             Console.WriteLine("Give Player Name\n");
             string playerName = Console.ReadLine();
-
             Player player = new Player();
             player.Name = playerName;
             Console.WriteLine("Your character name is " + player.Name + "\n");
-
             Console.WriteLine("Please wait patiently " + "while I fetch player Information");
 
             try
@@ -45,10 +41,7 @@ namespace GameWebApi
             {
                 Console.WriteLine("New Account Created");
                 AddPlayerInformation(player);
-
             }
-
-
 
 
             Console.WriteLine("Do you want to play the game(0) or see the leaderboard(1)? (answer 0 or 1) \n");
@@ -90,14 +83,13 @@ namespace GameWebApi
             {
                 Task<Player> task = GetRandomPlayer();
                 task.Wait();
-                Console.WriteLine(task.Result.Name);
                 if (task.Result.Name != myPlayer.Name)
                 {
                     foundPlayer = true;
                     opponent = task.Result;
                 }
-
             }
+
             Console.WriteLine("Your Opponent is: " + opponent.Name + "\n");
             Console.WriteLine("Guess " + opponent.Name + "'s number!");
 
@@ -201,8 +193,8 @@ namespace GameWebApi
             {
                 Console.WriteLine("Pos. " + (startPosInt + i + 1) + "       Name: " + xArray[i].Name + "      Score: " + xArray[i].Score + "\n");
             }
-
         }
+
         void DisplayMyPostion(Player player)
         {
             Task<long> documentTask = GetDocumentAmount();
